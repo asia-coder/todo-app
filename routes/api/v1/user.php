@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\V1\Auth\LoginController;
-use App\Http\Controllers\V1\Auth\LogoutController;
-use App\Http\Controllers\V1\Auth\RegisterController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\V1\User\LoginController;
+use App\Http\Controllers\V1\User\LogoutController;
+use App\Http\Controllers\V1\User\RegisterController;
+use App\Http\Controllers\V1\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/', fn (Request $request) => $request->user())->name('profile');
+    Route::get('/', UserController::class)->name('profile');
+    Route::post('/logout', LogoutController::class)->name('logout');
 });
 
 Route::post('/register', RegisterController::class)->name('register');
 Route::post('/login', LoginController::class)->name('login');
-Route::post('/logout', LogoutController::class)->name('logout');
