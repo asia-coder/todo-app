@@ -1,0 +1,8 @@
+services:
+  app:
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+    volumes:
+      - ./storage:/var/www/app/storage
+      - ./bootstrap/cache:/var/www/app/bootstrap/cache

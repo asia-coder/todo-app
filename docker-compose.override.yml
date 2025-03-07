@@ -1,0 +1,10 @@
+services:
+  app:
+    environment:
+      - APP_ENV=local
+    volumes:
+      - .:/var/www/app
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+
+  nginx:
+    platform: linux/arm64 # AppleSilicon chip | Change this to linux/amd64 if you are using an x86_64 machine
