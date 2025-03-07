@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('v1')->as('v1:')->middleware(['throttle:api'])->group(function () {
+    Route::prefix('task')->as('task:')->middleware('auth:sanctum')->group(base_path(
+        path: 'routes/api/v1/task.php'
+    ));
+
+    Route::prefix('user')->as('user:')->group(base_path(
+        path: 'routes/api/v1/user.php'
+    ));
 });
