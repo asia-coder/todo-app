@@ -10,4 +10,9 @@ class UserController
     {
         return new UserResource(auth()->user());
     }
+
+    public function update()
+    {
+        // тут будет обновление данных пользователя... может быть :)
+    }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1;
+namespace App\Http\Requests\V1\Task;
 
-use App\DTO\V1\Auth\LoginDTO;
+use App\DTO\V1\Task\TaskCreateDTO;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class TaskCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,16 +25,17 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required|string|min:8',
+            'title' => 'required|string',
+            'description' => 'nullable|string',
         ];
     }
 
-    public function payload(): LoginDTO
+    public function payload(): TaskCreateDTO
     {
-        return new LoginDTO(
-            email: $this->input('email'),
-            password: $this->input('password'),
+        return new TaskCreateDTO(
+            title: $this->input('title'),
+            description: $this->input('description'),
+            userId: $this->user()->id,
         );
     }
 }

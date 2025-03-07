@@ -11,7 +11,7 @@ use Laravel\Sanctum\NewAccessToken;
 class AuthService
 {
     public function __construct(
-        protected UserRepositoryInterface $userRepository
+        private readonly UserRepositoryInterface $userRepository
     )
     {}
 
