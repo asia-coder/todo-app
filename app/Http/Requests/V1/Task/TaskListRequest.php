@@ -32,6 +32,7 @@ class TaskListRequest extends FormRequest
             'filter.status' => 'nullable|string|in:' . $statusesStr,
             'sort_by' => 'nullable|string|in:created_at,status',
             'sort_order' => 'nullable|string|in:asc,desc',
+            'search_query' => 'nullable|string',
         ];
     }
 
@@ -41,6 +42,7 @@ class TaskListRequest extends FormRequest
             filter: $this->input('filter', []),
             sortBy: $this->input('sort_by', 'created_at'),
             sortOrder: $this->input('sort_order', 'asc'),
+            searchQuery: $this->input('search_query')
         );
     }
 }

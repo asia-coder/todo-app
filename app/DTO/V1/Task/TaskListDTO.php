@@ -8,6 +8,7 @@ class TaskListDTO
         public readonly array $filter,
         public readonly string $sortBy,
         public readonly string $sortOrder,
+        public readonly ?string $searchQuery
     )
     {}
 }

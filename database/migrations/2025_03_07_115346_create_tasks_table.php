@@ -22,8 +22,12 @@ return new class extends Migration
             $table->enum('status', ['active', 'completed'])->default('active');
             $table->timestamps();
 
+            $table->fullText('title')->language('simple');
+            $table->fullText('description')->language('simple');
+
             $table->index(['user_id', 'status'], 'task_user_status_idx');
             $table->index(['user_id', 'created_at'], 'task_user_created_at_idx');
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

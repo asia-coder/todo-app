@@ -13,7 +13,15 @@ class TaskRepository implements TaskRepositoryInterface
 {
     public function listByUserId(string $userId, TaskListDTO $taskListDTO): Collection
     {
-        return Task::query()
+        if ($taskListDTO->searchQuery) {
+            $taskQuery = Task::search($taskListDTO->searchQuery)
+                ->take(100); // защита от дурака, да здравствует пагинация
+        } else {
+            $taskQuery = Task::query()
+                ->limit(100); // защита от дурака, да здравствует пагинация
+        }
+
+        return $taskQuery
             ->where('user_id', $userId)
             ->when($taskListDTO->filter, function ($query, $filter) {
                 if (isset($filter['status'])) {
@@ -25,7 +33,6 @@ class TaskRepository implements TaskRepositoryInterface
             ->when($taskListDTO->sortBy, function ($query, $sortBy) use ($taskListDTO) {
                 $query->orderBy($sortBy, $taskListDTO->sortOrder);
             })
-            ->limit(500) // защита от дурака, да здравствует пагинация
             ->get();
     }
 
