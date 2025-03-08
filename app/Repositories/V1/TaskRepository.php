@@ -3,6 +3,7 @@
 namespace App\Repositories\V1;
 
 use App\DTO\V1\Task\TaskCreateDTO;
+use App\DTO\V1\Task\TaskListDTO;
 use App\DTO\V1\Task\TaskUpdateDTO;
 use App\Enums\TaskStatus;
 use App\Models\Task;
@@ -10,10 +11,20 @@ use Illuminate\Support\Collection;
 
 class TaskRepository implements TaskRepositoryInterface
 {
-    public function listByUserId(string $userId): Collection
+    public function listByUserId(string $userId, TaskListDTO $taskListDTO): Collection
     {
         return Task::query()
             ->where('user_id', $userId)
+            ->when($taskListDTO->filter, function ($query, $filter) {
+                if (isset($filter['status'])) {
+                    $query->where('status', $filter['status']);
+                }
+
+                return $query;
+            })
+            ->when($taskListDTO->sortBy, function ($query, $sortBy) use ($taskListDTO) {
+                $query->orderBy($sortBy, $taskListDTO->sortOrder);
+            })
             ->limit(500) // защита от дурака, да здравствует пагинация
             ->get();
     }

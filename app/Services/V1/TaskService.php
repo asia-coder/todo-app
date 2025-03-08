@@ -3,6 +3,7 @@
 namespace App\Services\V1;
 
 use App\DTO\V1\Task\TaskCreateDTO;
+use App\DTO\V1\Task\TaskListDTO;
 use App\DTO\V1\Task\TaskUpdateDTO;
 use App\Models\Task;
 use App\Repositories\V1\TaskRepositoryInterface;
@@ -17,9 +18,9 @@ class TaskService
     )
     {}
 
-    public function listByUserId(string $userId): Collection
+    public function listByUserId(string $userId, TaskListDTO $taskListDTO): Collection
     {
-        return $this->taskRepository->listByUserId($userId);
+        return $this->taskRepository->listByUserId($userId, $taskListDTO);
     }
 
     public function create(TaskCreateDTO $taskCreateDTO): Task
