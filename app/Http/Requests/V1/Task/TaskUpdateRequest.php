@@ -28,7 +28,7 @@ class TaskUpdateRequest extends FormRequest
         $statusesStr = implode(',', [TaskStatus::ACTIVE->value, TaskStatus::COMPLETED->value]);
 
         return [
-            'title' => 'required|string',
+            'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'status' => "required|string|in:" . $statusesStr,
         ];
