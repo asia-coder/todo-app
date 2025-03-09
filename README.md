@@ -22,6 +22,7 @@
 - Страница swagger документации доступна по адресу http://localhost:8000/swagger
 - В качестве драйвера для Laravel Scout используется `database` с полнотекстовым поиском
 - В качестве первичных ключей используются UUID для таблиц `tasks` и `users`
+- Корневом каталоге можно найти Postman коллекцию если вдруг не удобно работать через Swagger
 
 ## Тестирование
 `docker compose exec app php artisan test`
