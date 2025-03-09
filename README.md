@@ -24,4 +24,4 @@
 - В качестве первичных ключей используются UUID для таблиц `tasks` и `users`
 
 ## Тестирование
-- docker compose exec app php artisan test
+`docker compose exec app php artisan test`
